@@ -1,4 +1,4 @@
-import { ValueArrProducer } from '../core/value-types'
+import { ValueArrProducer } from '../core/value-obj'
 import { vuSetForAll } from '../core/value-utils'
 
 describe('ValueUtils', () => {

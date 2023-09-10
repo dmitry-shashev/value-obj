@@ -14,13 +14,13 @@ objects.
 For `npm`
 
 ```bash
-npm install value-type
+npm install value-obj
 ```
 
 For `pnpm`
 
 ```bash
-pnpm add value-type
+pnpm add value-obj
 ```
 
 ## API

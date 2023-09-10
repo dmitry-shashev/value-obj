@@ -1,11 +1,11 @@
 {
-  "name": "value-type",
+  "name": "value-obj",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dmitry-shashev/value-type"
+    "url": "https://github.com/dmitry-shashev/value-obj"
   },
-  "version": "0.0.5",
-  "description": "Value type library",
+  "version": "0.0.6",
+  "description": "Value obj library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
