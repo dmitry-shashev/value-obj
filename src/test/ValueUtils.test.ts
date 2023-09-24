@@ -1,5 +1,5 @@
 import { ValueArrProducer } from '../core/value-obj'
-import { vuSetForAll } from '../core/value-utils'
+import { vuRemoveFromArr, vuSetForAll } from '../core/value-utils'
 
 describe('ValueUtils', () => {
   it('vuSetForAll', () => {
@@ -28,6 +28,55 @@ describe('ValueUtils', () => {
     expect(result[0]?.label).toBe(newLabel)
     expect(result[1]?.options?.[1]?.label).toBe(newLabel)
     expect(result[1]?.options?.[1]?.options?.[0]?.label).toBe(newLabel)
+
+    expect(data).toEqual(getData())
+  })
+
+  it('vuRemoveFromArr', () => {
+    const data = getData()
+
+    expect(vuRemoveFromArr({}, data)).toEqual(getData())
+    expect(vuRemoveFromArr({ checked: true }, data)).toEqual(getData())
+
+    let result = vuRemoveFromArr({ value: '2' }, data)
+    expect(result).toEqual([
+      {
+        label: 'One',
+        value: '1',
+      },
+      {
+        label: 'Three',
+        value: '3',
+      },
+    ])
+    result = vuRemoveFromArr({ value: '1' }, result)
+    expect(result).toEqual([
+      {
+        label: 'Three',
+        value: '3',
+      },
+    ])
+    result = vuRemoveFromArr({ value: '1' }, result)
+    expect(result).toEqual([
+      {
+        label: 'Three',
+        value: '3',
+      },
+    ])
+    result = vuRemoveFromArr({ value: '3' }, result)
+    expect(result).toEqual([])
+
+    result = vuRemoveFromArr({ label: 'Two' }, data, 'label')
+    expect(result).toEqual([
+      {
+        label: 'One',
+        value: '1',
+      },
+      {
+        label: 'Three',
+        value: '3',
+      },
+    ])
 
     expect(data).toEqual(getData())
   })
@@ -65,6 +114,6 @@ const getData: ValueArrProducer = () => [
   },
   {
     label: 'Three',
-    value: '2',
+    value: '3',
   },
 ]
