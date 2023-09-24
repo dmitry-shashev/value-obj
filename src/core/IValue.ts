@@ -13,7 +13,6 @@ export class IValue<T = unknown> {
   readonly extraValue?: string
   readonly extraLabel?: string
   readonly extraColor?: string
-  readonly style?: CSSProperties
   // for recursive data
   readonly options?: Array<IValue>
   // for extra data
