@@ -1,5 +1,9 @@
 import { ValueArrProducer } from '../core/value-obj'
-import { vuRemoveFromArr, vuSetForAll } from '../core/value-utils'
+import {
+  vuFilterByString,
+  vuRemoveFromArr,
+  vuSetForAll,
+} from '../core/value-utils'
 
 describe('ValueUtils', () => {
   it('vuSetForAll', () => {
@@ -77,6 +81,24 @@ describe('ValueUtils', () => {
         value: '3',
       },
     ])
+
+    expect(data).toEqual(getData())
+  })
+
+  it('vuFilterByString', () => {
+    const data = getData()
+
+    expect(vuFilterByString(null, data)).toEqual(getData())
+    expect(vuFilterByString(undefined, data)).toEqual(getData())
+    expect(vuFilterByString('', data)).toEqual(getData())
+    expect(vuFilterByString('  ', data)).toEqual(getData())
+
+    expect(vuFilterByString('O', data)).toEqual([data[0], data[1]])
+    expect(vuFilterByString('t', data)).toEqual([data[1], data[2]])
+    expect(vuFilterByString('w', data)).toEqual([data[1]])
+    expect(vuFilterByString('123', data)).toEqual([])
+
+    expect(vuFilterByString('3', data, 'value')).toEqual([data[2]])
 
     expect(data).toEqual(getData())
   })
