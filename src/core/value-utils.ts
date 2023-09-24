@@ -29,14 +29,14 @@ export function vuRemoveFromArr<ValueType extends IValue>(
 
 export function vuFilterByString<ValueType extends IValue>(
   value: string | null | undefined,
-  arr: Array<ValueType>,
+  arr: ReadonlyArray<ValueType>,
   field: keyof ValueType = 'label'
 ): Array<ValueType> {
   const searchValue = String(value ?? '')
     .trim()
     .toLowerCase()
   if (!searchValue) {
-    return arr
+    return [...arr]
   }
 
   return arr.filter((v) => {
