@@ -18,3 +18,11 @@ export function vuSetForAll<
   }
   return result
 }
+
+export function vuRemoveFromArr<ValueType extends IValue>(
+  elem: ValueType,
+  arr: ReadonlyArray<ValueType>,
+  compareByField: keyof ValueType = 'value'
+): Array<ValueType> {
+  return arr.filter((v) => v[compareByField] !== elem[compareByField])
+}
