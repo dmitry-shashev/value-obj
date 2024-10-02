@@ -4,19 +4,21 @@ import {
   vuRemoveFromArr,
   vuSetForAll,
 } from '../core/value-utils'
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 
 describe('ValueUtils', () => {
   it('vuSetForAll', () => {
     const data = getData()
 
     const checkAllValues = (value: string): void => {
-      expect(result[0]?.value).toBe(value)
-      expect(result[1]?.value).toBe(value)
-      expect(result[2]?.value).toBe(value)
-      expect(result[1]?.options?.[0]?.value).toBe(value)
-      expect(result[1]?.options?.[1]?.value).toBe(value)
-      expect(result[1]?.options?.[1]?.options?.[0]?.value).toBe(value)
-      expect(result[1]?.options?.[1]?.options?.[1]?.value).toBe(value)
+      assert.equal(result[0]?.value, value)
+      assert.equal(result[1]?.value, value)
+      assert.equal(result[2]?.value, value)
+      assert.equal(result[1]?.options?.[0]?.value, value)
+      assert.equal(result[1]?.options?.[1]?.value, value)
+      assert.equal(result[1]?.options?.[1]?.options?.[0]?.value, value)
+      assert.equal(result[1]?.options?.[1]?.options?.[1]?.value, value)
     }
 
     const newValue1 = 'rain'
@@ -29,21 +31,21 @@ describe('ValueUtils', () => {
 
     const newLabel = 'ratata'
     result = vuSetForAll(data, 'label', newLabel)
-    expect(result[0]?.label).toBe(newLabel)
-    expect(result[1]?.options?.[1]?.label).toBe(newLabel)
-    expect(result[1]?.options?.[1]?.options?.[0]?.label).toBe(newLabel)
+    assert.equal(result[0]?.label, newLabel)
+    assert.equal(result[1]?.options?.[1]?.label, newLabel)
+    assert.equal(result[1]?.options?.[1]?.options?.[0]?.label, newLabel)
 
-    expect(data).toEqual(getData())
+    assert.deepEqual(data, getData())
   })
 
   it('vuRemoveFromArr', () => {
     const data = getData()
 
-    expect(vuRemoveFromArr({}, data)).toEqual(getData())
-    expect(vuRemoveFromArr({ checked: true }, data)).toEqual(getData())
+    assert.deepEqual(vuRemoveFromArr({}, data), getData())
+    assert.deepEqual(vuRemoveFromArr({ checked: true }, data), getData())
 
     let result = vuRemoveFromArr({ value: '2' }, data)
-    expect(result).toEqual([
+    assert.deepEqual(result, [
       {
         label: 'One',
         value: '1',
@@ -54,24 +56,24 @@ describe('ValueUtils', () => {
       },
     ])
     result = vuRemoveFromArr({ value: '1' }, result)
-    expect(result).toEqual([
+    assert.deepEqual(result, [
       {
         label: 'Three',
         value: '3',
       },
     ])
     result = vuRemoveFromArr({ value: '1' }, result)
-    expect(result).toEqual([
+    assert.deepEqual(result, [
       {
         label: 'Three',
         value: '3',
       },
     ])
     result = vuRemoveFromArr({ value: '3' }, result)
-    expect(result).toEqual([])
+    assert.deepEqual(result, [])
 
     result = vuRemoveFromArr({ label: 'Two' }, data, 'label')
-    expect(result).toEqual([
+    assert.deepEqual(result, [
       {
         label: 'One',
         value: '1',
@@ -82,25 +84,25 @@ describe('ValueUtils', () => {
       },
     ])
 
-    expect(data).toEqual(getData())
+    assert.deepEqual(data, getData())
   })
 
   it('vuFilterByString', () => {
     const data = getData()
 
-    expect(vuFilterByString(null, data)).toEqual(getData())
-    expect(vuFilterByString(undefined, data)).toEqual(getData())
-    expect(vuFilterByString('', data)).toEqual(getData())
-    expect(vuFilterByString('  ', data)).toEqual(getData())
+    assert.deepEqual(vuFilterByString(null, data), getData())
+    assert.deepEqual(vuFilterByString(undefined, data), getData())
+    assert.deepEqual(vuFilterByString('', data), getData())
+    assert.deepEqual(vuFilterByString('  ', data), getData())
 
-    expect(vuFilterByString('O', data)).toEqual([data[0], data[1]])
-    expect(vuFilterByString('t', data)).toEqual([data[1], data[2]])
-    expect(vuFilterByString('w', data)).toEqual([data[1]])
-    expect(vuFilterByString('123', data)).toEqual([])
+    assert.deepEqual(vuFilterByString('O', data), [data[0], data[1]])
+    assert.deepEqual(vuFilterByString('t', data), [data[1], data[2]])
+    assert.deepEqual(vuFilterByString('w', data), [data[1]])
+    assert.deepEqual(vuFilterByString('123', data), [])
 
-    expect(vuFilterByString('3', data, 'value')).toEqual([data[2]])
+    assert.deepEqual(vuFilterByString('3', data, 'value'), [data[2]])
 
-    expect(data).toEqual(getData())
+    assert.deepEqual(data, getData())
   })
 })
 
